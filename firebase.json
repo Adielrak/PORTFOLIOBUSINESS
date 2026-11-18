@@ -1,0 +1,22 @@
+{
+  "hosting": {
+    "public": ".next",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
+      { "source": "**", "destination": "/index.html" }
+    ],
+    "headers": [
+      {
+        "source": "/p/**",
+        "headers": [{ "key": "Cache-Control", "value": "public, max-age=60, stale-while-revalidate=300" }]
+      }
+    ]
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "storage": {
+    "rules": "storage.rules"
+  }
+}
