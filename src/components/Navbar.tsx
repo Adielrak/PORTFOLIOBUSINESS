@@ -2,10 +2,13 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useAuth } from "@/lib/auth/provider";
 
 export function Navbar() {
   const { user, loading, signIn, signOut } = useAuth();
+  const pathname = usePathname();
+  if (pathname?.startsWith("/studio")) return null;
 
   return (
     <nav className="fixed top-0 inset-x-0 z-50 bg-navy/90 backdrop-blur border-b border-navy-border">
