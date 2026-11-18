@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { site } from "./content";
+import { people, site } from "./content";
 
 const ease = [0.33, 1, 0.68, 1] as const;
 
@@ -69,20 +69,34 @@ function Globe() {
 }
 
 function Portrait() {
-  if (site.heroImage) {
-    // eslint-disable-next-line @next/next/no-img-element
-    return <img src={site.heroImage} alt={`${site.firstName} ${site.lastName}`} className="h-full w-full object-cover" />;
+  if (site.heroImages.length) {
+    return (
+      <div className="absolute inset-0 flex items-end justify-center gap-[2vw]">
+        {site.heroImages.map((src, i) => (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            key={src}
+            src={src}
+            alt={people[i] ? `${people[i].firstName} ${people[i].lastName}` : ""}
+            className="h-[85%] w-auto max-w-[45%] object-contain object-bottom"
+          />
+        ))}
+      </div>
+    );
   }
+  // Placeholder silhouettes until real portraits are added.
   return (
-    <svg viewBox="0 0 400 600" preserveAspectRatio="xMidYMax meet" className="absolute bottom-0 left-1/2 h-[92%] -translate-x-1/2 opacity-90">
+    <svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMax meet" className="absolute bottom-0 left-1/2 h-[88%] -translate-x-1/2 opacity-90">
       <defs>
         <linearGradient id="studio-sil" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor="#7c8081" />
           <stop offset="1" stopColor="#5d6162" />
         </linearGradient>
       </defs>
-      <circle cx="200" cy="170" r="95" fill="url(#studio-sil)" />
-      <path d="M20 600 C30 400 110 310 200 310 C290 310 370 400 380 600 Z" fill="url(#studio-sil)" />
+      <circle cx="260" cy="200" r="85" fill="url(#studio-sil)" />
+      <path d="M90 600 C100 420 170 330 260 330 C350 330 420 420 430 600 Z" fill="url(#studio-sil)" />
+      <circle cx="540" cy="215" r="80" fill="url(#studio-sil)" />
+      <path d="M380 600 C390 430 455 345 540 345 C625 345 690 430 700 600 Z" fill="url(#studio-sil)" />
     </svg>
   );
 }
@@ -120,7 +134,7 @@ export function Hero() {
         <p className="m-0 text-[clamp(1.5em,2.4vw,2.6em)] leading-none">{site.role[1]}</p>
       </div>
 
-      <Marquee text={`${site.firstName} ${site.lastName} —`} />
+      <Marquee text={site.marquee} />
     </motion.section>
   );
 }

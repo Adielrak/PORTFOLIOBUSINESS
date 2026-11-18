@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useSpring, type Variants } from "framer-motion";
 import { RoundedButton } from "./RoundedButton";
-import { projects, type Project } from "./content";
+import { projects, site, type Project } from "./content";
 
 const scaleVariants: Variants = {
   initial: { scale: 0, x: "-50%", y: "-50%" },
@@ -93,9 +93,30 @@ function FollowModal({ active, index }: { active: boolean; index: number }) {
   );
 }
 
+function EmptyWork() {
+  return (
+    <section id="work" className="mt-[220px] flex flex-col items-center px-[6vw] md:mt-[300px] md:px-[200px]">
+      <div className="flex w-full max-w-[1400px] flex-col">
+        <p className="mb-[40px] text-[11px] uppercase text-[#999D9E]">Work</p>
+        <div className="flex flex-col gap-10 border-y border-[rgb(201,201,201)] py-[60px] md:flex-row md:items-end md:justify-between md:py-[80px]">
+          <h2 className="m-0 max-w-[14ch] text-[clamp(36px,5vw,64px)] font-normal leading-[1.1]">{site.workEmptyTitle}</h2>
+          <p className="m-0 max-w-[420px] text-[18px] font-light">{site.workEmptyText}</p>
+        </div>
+      </div>
+      <div className="mt-[80px]">
+        <RoundedButton href="#contact" className="border border-[rgb(136,136,136)] px-[60px] py-[15px]">
+          <span className="text-[16px]">Start a project</span>
+        </RoundedButton>
+      </div>
+    </section>
+  );
+}
+
 export function Projects() {
   const [modal, setModal] = useState({ active: false, index: 0 });
   const listRef = useRef<HTMLDivElement>(null);
+
+  if (projects.length === 0) return <EmptyWork />;
 
   return (
     <section id="work" className="mt-[220px] flex flex-col items-center px-[4vw] md:mt-[300px] md:px-[200px]">

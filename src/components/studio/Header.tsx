@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Magnetic } from "./Magnetic";
-import { site } from "./content";
+import { fullNames, site } from "./content";
 
 const ease = [0.76, 0, 0.24, 1] as const;
 
@@ -56,7 +56,7 @@ function SideMenu({ onNavigate }: { onNavigate: () => void }) {
             </motion.div>
           ))}
         </div>
-        <div className="flex w-full justify-between gap-6 text-[12px]">
+        <div className="flex w-full justify-start gap-6 text-[12px]">
           {site.socials.map((s) => (
             <a key={s.title} href={s.href}>
               {s.title}
@@ -87,20 +87,18 @@ export function Header() {
   return (
     <>
       <header className="absolute top-0 z-[2] box-border flex w-full items-center justify-between p-[35px] font-light text-white">
-        <div className="group flex cursor-pointer">
-          <p className="m-0 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:rotate-[360deg]">©</p>
-          <div className="relative ml-[5px] flex overflow-hidden whitespace-nowrap transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:pr-[30px]">
-            <p className="relative transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-x-[65px]">
-              {site.brand}
-            </p>
-            <p className="relative pl-[0.3em] transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-x-[65px]">
-              {site.firstName}
-            </p>
-            <p className="absolute left-[120px] pl-[0.3em] transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-x-[65px]">
-              {site.lastName}
-            </p>
-          </div>
-        </div>
+        <a href="#home" className="group flex cursor-pointer whitespace-nowrap" aria-label={fullNames}>
+          <span className="m-0 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:rotate-[360deg]">©</span>
+          <span className="ml-[5px]">{site.brand}</span>
+          <span className="ml-[0.3em] inline-grid h-[1.5em] overflow-hidden">
+            <span className="col-start-1 row-start-1 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-full">
+              {site.brandShort}
+            </span>
+            <span className="col-start-1 row-start-1 translate-y-full transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:translate-y-0">
+              {site.brandFull}
+            </span>
+          </span>
+        </a>
         <nav className="hidden items-center sm:flex">
           {site.nav.slice(1).map((item) => (
             <Magnetic key={item.href}>

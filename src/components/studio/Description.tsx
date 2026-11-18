@@ -36,8 +36,8 @@ export function Description() {
           {site.introAside}
         </motion.p>
         <div className="md:absolute md:right-0 md:top-[80%] md:right-[-40px]">
-          <RoundedButton href="#work" className="h-[180px] w-[180px] bg-[#1C1D20] text-white">
-            <span className="text-[16px] font-light">About me</span>
+          <RoundedButton href="#contact" className="h-[180px] w-[180px] bg-[#1C1D20] text-white">
+            <span className="text-[16px] font-light">Work with us</span>
           </RoundedButton>
         </div>
       </div>

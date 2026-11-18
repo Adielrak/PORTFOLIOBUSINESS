@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { StudioPage } from "@/components/studio/StudioPage";
-import { site } from "@/components/studio/content";
+import { fullNames, site } from "@/components/studio/content";
 import "./studio.css";
 
 export const metadata: Metadata = {
-  title: `${site.firstName} ${site.lastName} • ${site.role[1]}`,
+  title: `${fullNames} • ${site.role.join(" ")}`,
   description: site.intro,
 };
 

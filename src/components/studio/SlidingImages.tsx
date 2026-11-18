@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { slider1, slider2 } from "./content";
+import { projects, slider1, slider2 } from "./content";
 
 type Slide = { color: string; accent: string };
 
@@ -19,7 +19,7 @@ function Card({ slide }: { slide: Slide }) {
   );
 }
 
-/** Two rows of cards that slide in opposite directions with scroll, plus a curved bottom edge. */
+/** Two rows of cards that slide in opposite directions with scroll (only once projects exist), plus a curved bottom edge. */
 export function SlidingImages() {
   const container = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: container, offset: ["start end", "end start"] });
@@ -29,6 +29,8 @@ export function SlidingImages() {
 
   return (
     <div ref={container} className="relative z-[1] mt-[200px] flex flex-col gap-[3vw] bg-white">
+      {projects.length > 0 && (
+        <>
       <motion.div style={{ x: x1 }} className="relative left-[-10vw] flex w-[120vw] gap-[3vw]">
         {slider1.map((s, i) => (
           <Card key={i} slide={s} />
@@ -39,6 +41,10 @@ export function SlidingImages() {
           <Card key={i} slide={s} />
         ))}
       </motion.div>
+        </>
+      )}
+      {/* Without the showcase rows, keep room so the rising footer doesn't cover the Work section. */}
+      {projects.length === 0 && <div className="h-[420px]" aria-hidden />}
       <motion.div style={{ height }} className="relative mt-[100px]">
         <div className="absolute left-[-10%] z-[1] h-[1550%] w-[120%] rounded-[0_0_50%_50%] bg-white shadow-[0px_60px_50px_rgba(0,0,0,0.75)]" />
       </motion.div>
